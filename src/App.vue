@@ -2,8 +2,10 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
+    <router-link v-if="!$store.state.email" to="/login">Login</router-link>
+    <a v-if="$store.state.email" @click="logout">Logout</a>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>
@@ -28,3 +30,15 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script>
+export default {
+  methods: {
+    logout() {
+      this.$store.commit("logout");
+    },
+  },
+  mounted() {
+    this.$store.commit("initializedStore");
+  },
+};
+</script>
